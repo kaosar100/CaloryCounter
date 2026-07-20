@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<div class="container my-5">
+
+{% block content %}
+
+
+<h1>
+    {% if form.instance.pk %}
+    Edit Meal
+    {% else %}
+    Add Meal
+    {% endif %}
+</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <br>
+    <button type="submit">
+        {% if form.instance.pk %}
+        Edit
+        {% else %}
+        Save
+        {% endif %}
+    </button>
+</form>
+
+<a href="{% url 'meal_list' %}">Back to meal list</a>
+
+{% endblock %}
+
+</div>

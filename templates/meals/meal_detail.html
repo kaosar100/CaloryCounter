@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+<div class="container my-5">
+
+{% block content %}
+
+
+<h1>Meal Details</h1>
+
+<table border="1" cellpadding="10">
+    {}
+    <tr>
+        <th>Food Name</th>
+        <td>{{meal.food_name}}</td>
+    </tr>
+    <tr>
+        <th>Meal type</th>
+        <td>{{meal.meal_type}}</td>
+    </tr>
+    
+    <tr>
+        <th>Quantity</th>
+        <td>{{meal.quantity}}</td>
+    </tr>
+
+    <tr>
+        <th>Calory</th>
+        <td>{{meal.calory}}</td>
+    </tr>
+
+    <tr>
+        <th>Protein</th>
+        <td>{{meal.protein}}</td>
+    </tr>
+
+    <tr>
+        <th>Carbohydrate</th>
+        <td>{{meal.carbs}}</td>
+    </tr>
+
+    <tr>
+        <th>Fat</th>
+        <td>{{meal.fat}}</td>
+    </tr>
+
+    <tr>
+        <th>Date</th>
+        <td>{{ meal.meal_date }}</td>
+    </tr>
+
+    <tr>
+        <th>Created</th>
+        <td>{{ meal.created_at }}</td>
+    </tr>
+</table>
+<br><br>
+
+<a href="{% url 'meal_update' meal.id %}">
+    Edit
+</a>
+
+&nbsp;&nbsp;
+
+<a href="{% url 'meal_delete' meal.id %}">
+    Delete
+</a>
+
+&nbsp;&nbsp;
+
+<a href="{% url 'meal_list' %}">
+    Back to Meal List
+</a>
+
+{% endblock %}
+
+</div>

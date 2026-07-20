@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+<div class="container my-5">
+
+{% block content %}
+
+
+<h2>Delete Profile</h2>
+
+<p>Are you sure to delete your profile? The saved data will be lost</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+{% endblock %}
+
+</div>

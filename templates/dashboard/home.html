@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+<div class="container my-5">
+
+{% block content %}
+
+
+<h1>Dashboard</h1>
+
+<p>Welcome {{ request.user.username }}</p>
+
+<p>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+</p>
+
+<hr>
+
+<!-- ========================= -->
+<!-- Personal Information -->
+<!-- ========================= -->
+
+<div class="card shadow mb-4">
+
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Personal Information</h4>
+    </div>
+
+    <div class="card-body">
+
+        {% if profile %}
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <p><strong>Age:</strong> {{ profile.age }}</p>
+                <p><strong>Sex:</strong> {{ profile.sex|title }}</p>
+                <p><strong>Height:</strong> {{ profile.height }} cm</p>
+            </div>
+
+            <div class="col-md-6">
+                <p><strong>Weight:</strong> {{ profile.weight }} kg</p>
+                <p><strong>Goal:</strong> {{ profile.goal }}</p>
+                <p><strong>Activity:</strong> {{ profile.activity_level }}</p>
+            </div>
+
+        </div>
+
+        <a href="{% url 'personal_info' %}"
+           class="btn btn-warning">
+            Edit Profile
+        </a>
+
+        {% else %}
+
+        <div class="alert alert-warning">
+
+            <h5>No profile found!</h5>
+
+            <p>Please complete your personal information first.</p>
+
+            <a href="{% url 'personal_info' %}"
+               class="btn btn-primary">
+                Complete Profile
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- ========================= -->
+<!-- Nutrition Summary -->
+<!-- ========================= -->
+
+<h2 class="mb-4">Nutrition Summary</h2>
+
+<div class="row">
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    BMR
+                </h5>
+
+                <h3>{{ bmr }}</h3>
+
+                <p>kcal/day</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>TDEE</h5>
+
+                <h3>{{ tdee }}</h3>
+
+                <p>kcal/day</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>Target</h5>
+
+                <h3>{{ target }}</h3>
+
+                <p>kcal/day</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h5>Remaining</h5>
+
+                <h3>{{ remaining }}</h3>
+
+                <p>kcal left</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- ========================= -->
+<!-- Today's Statistics -->
+<!-- ========================= -->
+
+<h2 class="mt-5 mb-4">
+Today's Statistics
+</h2>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5>Meals Today</h5>
+
+<h2>{{ today_meal_count }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5>Calories Today</h5>
+
+<h2>{{ today_calories }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5>Average / Meal</h5>
+
+<h2>{{ average_today }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr>
+
+<!-- ========================= -->
+<!-- Recent Meals -->
+<!-- ========================= -->
+
+<h2 class="mb-4">Recent Meals</h2>
+
+{% if recent_meals %}
+
+<table class="table table-striped table-hover shadow">
+
+<tr>
+    <th>Food</th>
+    <th>Meal Type</th>
+    <th>Calories</th>
+    <th>Date</th>
+</tr>
+
+{% for meal in recent_meals %}
+
+<tr>
+
+<td>{{ meal.food_name }}</td>
+
+<td>{{ meal.meal_type }}</td>
+
+<td>{{ meal.calory }}</td>
+
+<td>{{ meal.meal_date }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No recent meals.</p>
+
+{% endif %}
+
+<p>
+    <a href="{% url 'meal_create' %}"
+      class="btn btn-success">
+      Add Meal
+    </a>
+    |
+    <a href="{% url 'meal_list' %}" class="btn btn-warning">
+        View All Meals
+    </a>
+</p>
+
+<hr>
+
+<!-- ========================= -->
+<!-- All Meals -->
+<!-- ========================= -->
+
+<h2 class="mb-4">All Meals</h2>
+
+{% if meals %}
+
+<table class="table table-striped table-hover table-bordered">
+
+<tr>
+    <th>Food</th>
+    <th>Meal Type</th>
+    <th>Calories</th>
+    <th>Date</th>
+</tr>
+
+{% for meal in meals %}
+
+<tr>
+
+<td>{{ meal.food_name }}</td>
+
+<td>{{ meal.meal_type }}</td>
+
+<td>{{ meal.calory }}</td>
+
+<td>{{ meal.meal_date }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<h3>Total Calories Logged: {{ total_calories }} kcal</h3>
+
+{% else %}
+
+<p>No meals found.</p>
+
+{% endif %}
+
+{% endblock %}
+
+</div>

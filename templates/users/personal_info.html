@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+<div class="container my-5">
+
+{% block content %}
+
+
+<h1>Personal Info</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit">
+    {% if form.instance.pk %}
+    Update
+    {% else %}
+    Save
+    {% endif %}
+    </button>
+</form>
+
+{% endblock %}
+
+</div>
